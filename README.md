@@ -1,5 +1,5 @@
 # Tapo
-C# interface to the TP-Link TapoP100 and TapoP110 smart plugs
+C# interface to the TP-Link Tapo P100 and P110 smart plugs
 
 
 ```csharp
