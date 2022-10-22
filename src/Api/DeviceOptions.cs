@@ -8,15 +8,11 @@ using static Convert;
 public record class DeviceOptions(string Address, string Username, string Password, TimeSpan Timeout)
 {
   public DeviceOptions(string address, string username, string password) : this(address, username, password, TimeSpan.FromSeconds(5))
-  {}
+  { }
 
   public string EncodedUsername()
   {
-    return ToBase64String(
-        Encoding.UTF8.GetBytes(
-          ToHexString(
-            Hash(Encoding.UTF8.GetBytes(Username)))
-          .ToLower()));
+	return ToBase64String(Encoding.UTF8.GetBytes(ToHexString(Hash(Encoding.UTF8.GetBytes(Username))).ToLower()));
   }
 
   public string EncodedPassword()
