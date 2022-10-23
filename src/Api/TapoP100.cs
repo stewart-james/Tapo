@@ -62,22 +62,16 @@ public class TapoP100 : ITapoP100, IDisposable
 
 	public async Task<bool> IsTurnedOn() => (await GetDeviceInfo()).DeviceOn;
 
-	public async Task TurnOff()
+	public Task TurnOff() => SetDeviceInfo(false);
+	public Task TurnOn() => SetDeviceInfo(true);
+
+	private async Task SetDeviceInfo(bool turnOn)
 	{
 		await Authenticate();
 
 		var uri = new Uri(BaseUri, $"app?token={Token}");
 
-		await SecurePassThrough<SetDeviceInfoRequest, SetDeviceInfoResponse>(uri,new SetDeviceInfoRequest(false));
-	}
-
-	public async Task TurnOn()
-	{
-		await Authenticate();
-
-		var uri = new Uri(BaseUri, $"app?token={Token}");
-
-		await SecurePassThrough<SetDeviceInfoRequest, SetDeviceInfoResponse>(uri,new SetDeviceInfoRequest(true));
+		_ = await SecurePassThrough<SetDeviceInfoRequest, SetDeviceInfoResponse>(uri,new SetDeviceInfoRequest(turnOn));
 	}
 
 	protected async Task Authenticate()
@@ -167,6 +161,7 @@ public class TapoP100 : ITapoP100, IDisposable
 		var content = Convert.FromBase64String(response.Result.Response);
 		var decrypted = _decryptor.TransformFinalBlock(content, 0, content.Length);
 		var decryptedContent = Encoding.UTF8.GetString(decrypted);
+		Console.WriteLine(decryptedContent);
 
 		var deserializedResult = JsonSerializer.Deserialize<TResponse>(decryptedContent, _jsonSerializerOptions);
 
