@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+	  <PackageId>TapoApi</PackageId>
+	  <Version>0.0.1</Version>
+	  <Authors>Stewart James</Authors>
+  </PropertyGroup>
+
 </Project>
