@@ -8,7 +8,7 @@
 
   <PropertyGroup>
 	  <PackageId>TapoApi</PackageId>
-	  <Version>0.0.1</Version>
+	  <Version>0.0.2</Version>
 	  <Authors>Stewart James</Authors>
   </PropertyGroup>
 
