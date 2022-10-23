@@ -161,7 +161,6 @@ public class TapoP100 : ITapoP100, IDisposable
 		var content = Convert.FromBase64String(response.Result.Response);
 		var decrypted = _decryptor.TransformFinalBlock(content, 0, content.Length);
 		var decryptedContent = Encoding.UTF8.GetString(decrypted);
-		Console.WriteLine(decryptedContent);
 
 		var deserializedResult = JsonSerializer.Deserialize<TResponse>(decryptedContent, _jsonSerializerOptions);
 
