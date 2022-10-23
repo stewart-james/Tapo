@@ -1,6 +1,7 @@
 namespace Api;
 
 using System.Collections.Immutable;
+using System.Globalization;
 
 public class TapoP110 : TapoP100, ITapoP110
 {
@@ -22,7 +23,7 @@ public class TapoP110 : TapoP100, ITapoP110
 			response.Result.MonthRuntime,
 			response.Result.TodayEnergy,
 			response.Result.MonthEnergy,
-			DateTime.Parse(response.Result.LocalTime),
+			DateTime.ParseExact(response.Result.LocalTime, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
 			response.Result.CurrentPower,
 			ImmutableArray.Create(response.Result.ElectricityCharge)
 		);
@@ -33,8 +34,8 @@ public class TapoP110 : TapoP100, ITapoP110
 		public string Method { get; } = "get_energy_usage";
 		public long RequestTimeMils { get; } = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 	}
-	private sealed record GetEnergyUsageResponse(int ErrorCode, EnergyUsage Result);
 
+	private sealed record GetEnergyUsageResponse(int ErrorCode, EnergyUsage Result);
 	private sealed record EnergyUsage
 	(
 		int TodayRuntime,
